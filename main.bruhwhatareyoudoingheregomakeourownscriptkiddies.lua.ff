@@ -5,8 +5,8 @@ getgenv().version = "0.0.1"
 Workspace = game.Workspace
 local PlayerService = game:GetService'Players'
 local Player = game.Players.LocalPlayer;
-Hum = Player.Character.Humanoid
-local HumanoidRootPart = Player.Character.HumanoidRootPart;
+Hum = Player.Character:WaitForChild("Humanoid", 5)
+local HumanoidRootPart = Player.Character:WaitForChild("HumanoidRootPart", 5)
 local teleport = game:GetService'TeleportService';
 local Mouse = Player:GetMouse();
 local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId);
@@ -642,4 +642,3 @@ end
 
 -- load
 snowy:SelectPage(snowy.pages[1], true)
-
