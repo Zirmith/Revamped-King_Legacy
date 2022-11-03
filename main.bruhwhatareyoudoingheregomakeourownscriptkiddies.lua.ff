@@ -25,7 +25,7 @@ local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceI
 
 
 
-local snowy = library.new("AuthHub | " ..GetName, 5013109572)
+local snowy = library.new("ZoraHub | " ..GetName, 5013109572)
 
 local vu = game:GetService("VirtualUser")
 
@@ -62,9 +62,11 @@ _G.settings = {
 
 --vars
 selectedmethod = "";
+
 version = getgenv().version;
+
 wantedversion = getgenv().version;
-configfile = ""
+
 _G.playeresp = false
 _G.farmtpmethod = "";
 _G.farmdistance = 0;
@@ -80,7 +82,8 @@ _G.pos = nil
 _G.autosave = false
 _G.getloco = true
 _G.selectedplayer = nil
- _G.playerhunting = nil
+_G.playerhunting = nil
+
 _G.ncplist = {
     "Soldier",
     "Smoky",
@@ -149,7 +152,7 @@ _G.islands = {
 
 utility.reload = function()
     task.wait()
-    game.CoreGui["AuthHub | " ..GetName]:Destroy()
+    game.CoreGui["ZoraHub | " ..GetName]:Destroy()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Zirmith/Revamped-King_Legacy/main/main.bruhwhatareyoudoingheregomakeourownscriptkiddies.lua.ff"))()
 end
 
@@ -177,6 +180,12 @@ for i,v in pairs(game.Workspace:GetChildren()) do
     end
 end
 
+
+utility.getSafePlace = function()
+    if Humanoid.Health > 100 then
+
+    end
+end
 
 utility.tween = function(time, pos) -- Regular tween
     game:GetService("TweenService"):Create(HumanoidRootPart,
@@ -210,7 +219,7 @@ utility.onSave = function()
     local https = game:GetService'HttpService'
     if(writefile) then
        json = https:JSONEncode(_G.settings)
-       local hub = "Auth0"
+       local hub = "Zora0"
         if not isfolder(hub) then
         makefolder(hub)
         end
@@ -225,7 +234,7 @@ end
 utility.onLoad = function()
     local json;
     local https = game:GetService'HttpService'
-     local path = "Auth0/config.json"
+     local path = "Zora0/config.json"
     if(isfile(path)) then
     if(readfile) then
       
@@ -480,9 +489,9 @@ end)
 
 local page = snowy:addPage("Home", 5012544693)
 local credits = page:addSection('Credits')
-local owner = credits:addButton('Made By : Auth0')
+local owner = credits:addButton('Made By : Nebula Zora')
 local uicreds = credits:addButton('Ui Design: Venyx')
-local scripting = credits:addButton('Scripting By: AuthHub Team')
+local scripting = credits:addButton('Scripting By: ZoraHub Team')
 local versionsec = page:addSection('Version')
 local vb = versionsec:addButton('Using Version: v'..version)
 
@@ -508,7 +517,7 @@ local auto_save = versionsec:addToggle('Auto Save', false, function(state)
 end)
 
 local quit = versionsec:addButton('Quit', function()
-    game.CoreGui["AuthHub | " ..GetName]:Destroy()
+    game.CoreGui["ZoraHub | " ..GetName]:Destroy()
 end)
 
 
