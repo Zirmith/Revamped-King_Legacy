@@ -150,7 +150,7 @@ _G.islands = {
 utility.reload = function()
     task.wait()
     game.CoreGui["AuthHub | " ..GetName]:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/AuthZero/Project-M/main/Auth/Scripting/Beta/Versions/"..wantedversion.."/Source/script.auth"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Zirmith/Revamped-King_Legacy/main/main.bruhwhatareyoudoingheregomakeourownscriptkiddies.lua.ff"))()
 end
 
 utility.rejoin = function()
