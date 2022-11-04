@@ -83,6 +83,7 @@ _G.autosave = false
 _G.getloco = true
 _G.selectedplayer = nil
 _G.playerhunting = nil
+_G.autoafk = nil
 
 _G.ncplist = {
     "Soldier",
@@ -212,7 +213,24 @@ utility.bounce = function(time, pos) -- tiny tween
     task.wait(time)
 end
 
+utility.createConfigFile()
+local json;
+local https = game:GetService'HttpService'
+if(writefile) then
+   json = https:JSONEncode(_G.settings)
+   local hub = "Zora0"
+    if not isfolder(hub) then
+    makefolder(hub)
+    end
+   local path = hub .. "/config.json"
+   writefile(path ,json, null, 2)
+   
+   else
+   snowy:Notify('Error','[writefile]')
+   end   
+end
 
+utility.createConfigFile()
 
 utility.onSave = function()
     local json;
@@ -269,12 +287,13 @@ utility.onLoad = function()
 end
 
 
-	game:GetService("Players").LocalPlayer.Idled:connect(function()
-     utility.onSave()
+utility.noafk = function()
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
 		vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 		wait(1)
 		vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 	end)
+end
 
 -- get ncp list
 utility.getncplist = function()
@@ -407,6 +426,19 @@ utility.huntplayer = function(mob)
     end
 end
 
+utility.giveFruit = function(player,fruit)
+    for _,v in next, Player.Backpack:GetChildren() do
+        if v:IsA("Tool") and v.Name == fruit then
+            for i,c in pairs(game.Workspace:GetDescendants()) do
+                if c:FindFirstChild('Humanoid') and c.HumanoidRootPart and c.Name == _G.selectedplayer and c.Humanoid.Health > 0 and (c.HumanoidRootPart.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 2000 then
+                    utility.warp(.3, c.HumanoidRootPart.CFrame)
+                    task.wait(.6)
+                    v.Parent = game.Workspace
+                end
+            end
+    end
+end
+
 utility.useSword = function()
  local A_1 = "SW_".._G.farmweapon.."_M1"
  game:GetService("ReplicatedStorage").Remotes.Functions.SkillAction:InvokeServer(A_1)
@@ -431,6 +463,16 @@ spawn(function()
          end
     end
  end)
+
+ spawn(function()
+    while task.wait(.1) do
+         if _G.autoafk then
+            utility.noafk()
+         end
+    end
+ end)
+
+
 
  spawn(function()
     while task.wait(.1) do
@@ -513,6 +555,10 @@ end)
 
 local auto_save = versionsec:addToggle('Auto Save', false, function(state)
     _G.autosave = state
+end)
+
+local antiafk = versionsec:addToggle('Anti-Afk', false, function(state)
+    _G.autoafk = state
 end)
 
 local quit = versionsec:addButton('Quit', function()
