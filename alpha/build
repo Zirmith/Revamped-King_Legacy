@@ -157,12 +157,7 @@ utility.reload = function()
     local relaunchurl;
     if(wantedversion == "Dev-Testing") then
         warn('Launching: '..wantedversion)
-        for i,v in pairs(kl.dev.whitelisted) do
-            if Player.UserId == v then
-                relaunchurl = 'https://raw.githubusercontent.com/Zirmith/Revamped-King_Legacy/main/dev/build'
-            else
-                return warn('You cant access this build')
-            end
+            relaunchurl = 'https://raw.githubusercontent.com/Zirmith/Revamped-King_Legacy/main/dev/build'
         end
     elseif (wantedversion == "Beta-Testing") then
         relaunchurl = 'https://raw.githubusercontent.com/Zirmith/Revamped-King_Legacy/main/beta/build'
